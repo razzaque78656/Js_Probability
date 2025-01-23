@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toss a Coin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .coin {
+            width: 100px;
+            height: 100px;
+            background-image: url('./coin_OneSide.jpg');
+            background-size: cover;
+            border-radius: 50%;
+            margin: 20px auto;
+            transition: transform 1s;
+        }
+        .flip {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center  min-h-screen">
+    <nav class="bg-white shadow w-full">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a class="text-gray-800 text-xl font-bold" href="#">Made With Passion</a>
+                </div>
+                <div class="flex space-x-4">
+                    <a class="text-gray-800 hover:text-blue-600" href="index.html">Home</a>
+                    <a class="text-gray-800 hover:text-blue-600" href="https://coderrraza.rf.gd/?i=1">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto text-center mt-10">
+        <h1 class="text-3xl font-bold mb-5">Toss a Coin</h1>
+        <div id="coin" class="coin">
+
+        </div>
+        <button id="tossButton" class="bg-blue-500 text-white px-4 py-2 rounded mt-5">Toss</button>
+        <audio id="coinSound" src="./coin-clatter-6-87110.mp3"></audio>
+        <h1 class="text-3xl mt-8" id="result">Result: </h1>
+
+        <div class="mt-8 flex justify-center gap-16">
+            <div class="head bg-blue-500 py-2 px-3 rounded" id="head">Head : </div>
+            <div class="tail bg-green-500 py-2 px-3 rounded" id="tail">Tail : </div>
+            <button id="reset" class="bg-red-500 py-2 px-3 rounded">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const coin = document.getElementById('coin');
+        const head = document.getElementById('head');
+        const tail = document.getElementById('tail');
+        const reset = document.getElementById('reset');
+        const result = document.getElementById('result');
+        const tossButton = document.getElementById('tossButton');
+        const coinSound = document.getElementById('coinSound');
+        let headCount = 0;
+        let tailCount = 0;
+
+        tossButton.addEventListener('click', () => {
+            result.textContent = "Result : ";
+            let i = Math.floor(Math.random() * 2); // Fix the Math.random function call
+            console.log(i);
+            
+           
+            coin.classList.add('flip');
+            coinSound.play();
+            setTimeout(() => {
+                coin.classList.remove('flip');
+                if(i === 1){
+                result.textContent += "Head";
+                headCount += 1;
+                head.textContent = "Head : ";
+                head.textContent += headCount;
+                console.log(headCount);
+                
+            } else {
+                result.textContent += "Tail";
+                tailCount += 1;
+                head.textContent = "Head : ";
+                tail.textContent += tailCount;
+            }
+
+            }, 1000);
+
+            
+        });
+
+        reset.addEventListener('click',function(){
+            headCount = 0;
+            tailCount = 0;
+
+            head.textContent = "Head : 0";
+            tail.textContent = "Tail : 0";
+        });
+    </script>
+</body>
+</html>
